@@ -1,15 +1,38 @@
 # DARKIN
-Hello! This is the official repository for the DARKIN sataset which we present in our paper "DARKIN: A zero-shot classification benchmark and an evaluation of protein language models". 
+Hello! This is the official repository for the DARKIN dataset which we present in our paper "DARKIN: A zero-shot classification benchmark and an evaluation of protein language models". 
 
 DARKIN is dataset created for the Zero-Shot Learning setup, which you could create different versions of in a reproducible manner by playing around with the available parameters. This document will walk you through on how you could generate the DARKIN dataset in you local envionment and other details on the DARKIN dataset. For more detail please refer to our article. This repo will go over these topics:
-1. How to generate a DARKIN split in your local environment
- - How to generate the dataset statistics
-3. Details of the implementation (skippable if you are only interested in using the dataset)
- - Example dataset statictics of the main DARKIN split we used in our paper
+1. DARKIN and its Implementation Strategy
+2. How to generate a DARKIN split in your local environment
+(In progress) 3. Using the Dataset Statistics script to get insight of the created DARKIN split
+(In progress) 4. Example dataset statictics of the main DARKIN split we used in our paper
 
-## 1. Generate a DARKIN split
+## 1. DARKIN and its Implementation Strategy
 
-### 1.1. Installation & Setting up the Environment
+DARKIN is a dataset consisting of phosphorylation data, mainly it contains rows of phosphosites and the kinases which phosphorylate these specific phosphosites. So the phosphosites are the inputs, and the kinases are the labels. Also since a phosphosite could be phosphorylated by several kinases, it is not unusual to see multiple kinases next to a single phosphosite in the dataset. DARKIN is created for the Zero-Sot learning setup, thus the kinases present in the train, validation and test sets are all disjoint. Here is a sample snapshot of a portion of the dataset:
+
+| SUB_ACC_ID | SUB_MOD_RSD | SITE_+/-7_AA | KINASE_ACC_IDS |
+|:---------|:---------|:---------|:---------|
+|P68101|S52|MILLSELsRRRIRSI|Q9BQI3|
+|P83268|S51|RILLsELsR______|Q9BQI3|
+|P05198|S52|MILLsELsRRRIRsI|P28482,Q7KZI7,Q9BQI3,Q9NZJ5|
+|P05198|S49|IEGMILLsELsRRRI|Q9BQI3,Q9NZJ5|
+
+There are several startegies utilized when creating the dataset splits:
+
+- **Number of phosphosites per kinase**: To ensure robust evaluation in the test and validation sets, we set a minimum threshold for the number of phosphosite-kinase pair associations a kinase should have in order to be defined as a test or validation kinase. This is to make sure that the scores obtained for a specific kinase class in test or validation do not rely on very few data, since results obtained on very few data points could be misleading. 
+- **Stratification based on kinase groups**: Data points are stratified into train, validation and test sets based on kinase groups. This is to ensure that every kinase group is represented in each set whenever feasible.  
+- **Sequence similarity of kinases**: To prevent optimistic performance estimates, kinases with sequence similarity above a paramterized threshold  are grouped and assigned to the same sets (train, validation, or test).
+
+Here is the high level illustration of the steps of our dataset splitting strategy implementation:
+
+<p align="center">
+  <img src="/images/high_level_dataset_split_script_algorithm_flow-ZSL-GitHub.drawio.png" alt="High Level Steps of the Dataset Splitting Script" width="20%"/>
+</p>
+
+## 2. How to generate a DARKIN split in your local environment
+
+### 2.1. Installation & Setting up the Environment
 
 As the first step you have to download this repository to your local environment. You can either download it az a zip file or just clone the repository like this:
 
@@ -51,7 +74,7 @@ pip install matplotlib
 
 now you should be all set to run the code!
 
-### 1.2. Running the Code
+### 2.2. Running the Code
 
 Now you are ready to run the code and create the DARKIN dataset in your local environment. To run the code, you have to run the create_darkin_split.py file like this:
 
@@ -59,7 +82,7 @@ Now you are ready to run the code and create the DARKIN dataset in your local en
 python create_darkin_split.py
 ```
 
-(I will add some informatoin on the strategy that is used in DARKIN before getting to the parameters.)
+There are several parameters which you could play aorund with, according to your specific interests (Please refer to section 1 is these parameters are confusing to you):
 
 | Parameter | Description |
 |:---------|:---------|
