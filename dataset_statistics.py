@@ -3,10 +3,12 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import matplotlib
 from PIL import Image
+import matplotlib.font_manager
 
 # Set the font to Arial and font size globally
 matplotlib.rcParams['font.sans-serif'] = "Arial"
-matplotlib.rcParams['font.family'] = "sans-serif"
+plt.rcParams['font.family'] = 'DeJavu Serif'
+plt.rcParams['font.serif'] = ['Times New Roman']
 matplotlib.rcParams['font.size'] = 12
 
 SETTING = "ZSL"
@@ -220,8 +222,6 @@ def setup_axes(ax, bins, column_title, threshold_strings, max_y_value):
     y_labels = [str(i) if i % 50 == 0 else '' for i in range(0, max_y_value, 10)]
     ax.set_yticklabels(y_labels)
 
-    print(f'max y value : {max_y_value}')
-
     # Set the upper limit for the y-axis based on the max_y_value
     ax.set_ylim(0, max_y_value+30)
 
@@ -235,6 +235,7 @@ def setup_axes(ax, bins, column_title, threshold_strings, max_y_value):
     ax.spines['left'].set_visible(False)
     ax.tick_params(axis='both', which='both', length=0)
     ax.bar(threshold_strings, bins, color=grayish_color, linewidth=0.5)
+    ax.set_xticks(range(len(threshold_strings)))  # This line is crucial
     ax.set_xticklabels(threshold_strings, rotation=90, fontsize=10)
     ax.set_axisbelow(True)
     ax.grid(axis='y', zorder=0)
@@ -446,10 +447,10 @@ def fill_in_subplots_for__get_kinase_group_distributions_with_site_count_informa
 
     axes[1, column].bar(x_labels_kinase_group, x_values_kinase_group, color=grayish_color)
     axes[1, column].set_xlabel('Kinase Groups', fontsize=font_size, fontweight='bold')
-    axes[1, column].set_ylabel('Unique Site count Count', fontsize=font_size, fontweight='bold')
+    axes[1, column].set_ylabel('Unique Site Count', fontsize=font_size, fontweight='bold')
     axes[1, column].tick_params(axis='x', rotation=45, labelsize=font_size)
-    for i, count in enumerate(x_values_kinase_group):
-        axes[1, column].text(i, count + 0.5, str(count), ha='center')
+    # for i, count in enumerate(x_values_kinase_group):
+    #     axes[1, column].text(i, count + 0.5, str(count), ha='center')
     axes[1, column].set_axisbelow(True)
     axes[1, column].grid(axis='y', zorder=0)
     axes[1, column].spines['top'].set_visible(False)
@@ -461,8 +462,8 @@ def fill_in_subplots_for__get_kinase_group_distributions_with_site_count_informa
     axes[2, column].set_xlabel('Kinase Groups', fontsize=font_size, fontweight='bold')
     axes[2, column].set_ylabel('Total data(row) count', fontsize=font_size, fontweight='bold')
     axes[2, column].tick_params(axis='x', rotation=45, labelsize=font_size)
-    for i, count in enumerate(x_values_kinase_count_group):
-        axes[2, column].text(i, count + 0.5, str(count), ha='center')
+    # for i, count in enumerate(x_values_kinase_count_group):
+    #     axes[2, column].text(i, count + 0.5, str(count), ha='center')
     axes[2, column].set_axisbelow(True)
     axes[2, column].grid(axis='y', zorder=0)
     axes[2, column].spines['top'].set_visible(False)
@@ -484,7 +485,8 @@ DATASET STATISTICS VISUALISATION FROM HERE ON:
 def get_kinase_counts_in_datasets():
     # Set the font to Arial and font size globally
     matplotlib.rcParams['font.sans-serif'] = "Arial"
-    matplotlib.rcParams['font.family'] = "sans-serif"
+    plt.rcParams['font.family'] = 'DeJavu Serif'
+    plt.rcParams['font.serif'] = ['Times New Roman']
     matplotlib.rcParams['font.size'] = 12
 
     # since all rows have a unique site identifier, the row counts will give the site counts
@@ -549,14 +551,15 @@ def get_kinase_counts_in_datasets():
     # Setting labels and title
     ax.set_xlabel('Datasets', labelpad=15)
     ax.set_ylabel('Kinase Count')
-    # ax.set_title('Kinase Counts in Each Dataset')
+    # ax.set_title('Kinase Count in Each Set')
 
     # Display the plot
     plt.tight_layout()  # Adjust layout
+    
     # plt.show()
     # If you want to save the images, comment plt.show() and uncomment the two following lines:
-    plt.savefig(f'{dataset_statistics_directory}/kinase_counts_without_bar_numbers.pdf', format='pdf', bbox_inches='tight', dpi=350)
-    plt.savefig(f'{dataset_statistics_directory}/kinase_counts_without_bar_numbers.png', format='png', bbox_inches='tight', dpi=350)
+    plt.savefig(f'{dataset_statistics_directory}/kinase_count_in_each_set.pdf', format='pdf', bbox_inches='tight', dpi=350)
+    plt.savefig(f'{dataset_statistics_directory}/kinase_count_in_each_set.png', format='png', bbox_inches='tight', dpi=350)
 
 '''
 ###################################################################################
@@ -613,14 +616,14 @@ def get_sites_distribution():
     # Setting labels and title
     ax.set_xlabel('Datasets', labelpad=15)
     ax.set_ylabel('Number of Phosphosites')
-    # ax.set_title('Distribution of Sites across Different Datasets')
+    # ax.set_title('Site count in each Set')
 
     plt.tight_layout()  # Adjust layout
     # Display the plot
     # plt.show()
     # If you want to save the images, comment plt.show() and uncomment the two following lines:
-    plt.savefig(f'{dataset_statistics_directory}/Sites_distribution.pdf', format='pdf', bbox_inches='tight', dpi=350)
-    plt.savefig(f'{dataset_statistics_directory}/Sites_distribution.png', format='png', bbox_inches='tight', dpi=350)  # You can increase dpi if needed
+    plt.savefig(f'{dataset_statistics_directory}/phosphosite_count_in_each_set.pdf', format='pdf', bbox_inches='tight', dpi=350)
+    plt.savefig(f'{dataset_statistics_directory}/phosphosite_count_in_each_set.png', format='png', bbox_inches='tight', dpi=350)  # You can increase dpi if needed
 
 
 '''
@@ -633,7 +636,8 @@ def get_sites_distribution():
 def get_phosphosite_kinase_pair_distribution():
     # Set the font to Arial and font size globally
     matplotlib.rcParams['font.sans-serif'] = "Arial"
-    matplotlib.rcParams['font.family'] = "sans-serif"
+    plt.rcParams['font.family'] = 'DeJavu Serif'
+    plt.rcParams['font.serif'] = ['Times New Roman']
     matplotlib.rcParams['font.size'] = 12
 
     # since all rows have a unique site identifier, the row counts will give the site counts
@@ -701,7 +705,7 @@ def get_phosphosite_kinase_pair_distribution():
     # Setting labels and title
     ax.set_xlabel('Datasets', labelpad=15)
     ax.set_ylabel('Phosphosite-Kinase Pair Count')
-    # ax.set_title('Distribution of Phosphosite-Kinase Pairs Across Different Datasets')
+    # ax.set_title('Phosphosite-Kinase Pair Counts')
 
     plt.tight_layout()  # Adjust layout
     # Display the plot
@@ -724,7 +728,8 @@ def get_phosphosite_kinase_pair_distribution():
 '''
 def create_histogram_from_kinase_occurences():
     matplotlib.rcParams['font.sans-serif'] = "Arial"
-    matplotlib.rcParams['font.family'] = "sans-serif"
+    plt.rcParams['font.family'] = 'DeJavu Serif'
+    plt.rcParams['font.serif'] = ['Times New Roman']
     matplotlib.rcParams['font.size'] = 10
 
     train_kinase_counts, validation_kinase_counts, test_kinase_counts = get_kinase_count_in_dataset()
@@ -776,9 +781,9 @@ def create_histogram_from_kinase_occurences():
 
     max_y_value += 10
 
-    setup_axes(axes[0], bins_train, "Train Dataset", threshold_strings, max_y_value)
-    setup_axes(axes[1], bins_validation, "Validation Dataset", threshold_strings, max_y_value)
-    setup_axes(axes[2], bins_test, "Test Dataset", threshold_strings, max_y_value)
+    setup_axes(axes[0], bins_train, "Train Set", threshold_strings, max_y_value)
+    setup_axes(axes[1], bins_validation, "Validation Set", threshold_strings, max_y_value)
+    setup_axes(axes[2], bins_test, "Test Set", threshold_strings, max_y_value)
 
     axes[0].set_ylim(0, max_y_value)
     axes[1].set_ylim(0, max_y_value)
@@ -788,14 +793,14 @@ def create_histogram_from_kinase_occurences():
         ax.set_ylabel("", fontweight='bold')
         # ax.set_yticks([])
 
-    # axes[1].set_xlabel("Phosphosite-kinase count", fontweight='bold')
+    axes[1].set_xlabel("Phosphosite-kinase count", fontweight='bold', labelpad=7)
 
     # plt.subplots_adjust(wspace=0.5)  # Adjust the value as needed
     # fig.text(0.5, 0.1, 'Number of Phosphorylation Sites', ha='center', va='center', fontweight='bold', fontsize=12)
 
     plt.subplots_adjust(bottom=0.2)  # Increase the bottom parameter as needed
 
-    plt.tight_layout()  # Adjust layout
+    # plt.tight_layout()  # Adjust layout
     # plt.show()
     # If you want to save the images, comment plt.show() and uncomment the two following lines:
     plt.savefig(f'{dataset_statistics_directory}/Kinase_Occurrenes_Histogram.pdf', format='pdf', bbox_inches='tight', dpi=350)
@@ -941,10 +946,10 @@ def get_kinase_group_distributions():
                                                          row_1_max, row_2_max)
 
     plt.tight_layout()  # Adjust layout
-    # plt.show()
+    plt.show()
     # If you want to save the images, comment plt.show() and uncomment the two following lines:
-    plt.savefig(f'{dataset_statistics_directory}/Kinase_Group_Distribution_and_Phosphosite_Kinase_Pair_Count.pdf', format='pdf', bbox_inches='tight', dpi=350)
-    plt.savefig(f'{dataset_statistics_directory}/Kinase_Group_Distribution_and_Phosphosite_Kinase_Pair_Count.png', format='png', bbox_inches='tight', dpi=350)  # You can increase dpi if needed
+    # plt.savefig(f'{dataset_statistics_directory}/Kinase_Group_Distribution_and_Phosphosite_Kinase_Pair_Count.pdf', format='pdf', bbox_inches='tight', dpi=350)
+    # plt.savefig(f'{dataset_statistics_directory}/Kinase_Group_Distribution_and_Phosphosite_Kinase_Pair_Count.png', format='png', bbox_inches='tight', dpi=350)  # You can increase dpi if needed
 
 '''
 #########################################################################################
@@ -959,7 +964,8 @@ def get_kinase_group_distributions():
 '''
 def get_multilabel_rows_distribution():
     matplotlib.rcParams['font.sans-serif'] = "Arial"
-    matplotlib.rcParams['font.family'] = "sans-serif"
+    plt.rcParams['font.family'] = 'DeJavu Serif'
+    plt.rcParams['font.serif'] = ['Times New Roman']
     matplotlib.rcParams['font.size'] = 12
 
     train_rows = get_train_rows()
@@ -1017,7 +1023,7 @@ def get_multilabel_rows_distribution():
 
     plt.subplots_adjust(bottom=0.2)  # Increase the bottom parameter as needed
 
-    plt.tight_layout()  # Adjust layout
+    # plt.tight_layout()  # Adjust layout
     # plt.show()
     # If you want to save the images, comment plt.show() and uncomment the two following lines:
     plt.savefig(f'{dataset_statistics_directory}/Multilabel_vs_NonMultilabel_Rows_Distribution.pdf', format='pdf', bbox_inches='tight', dpi=350)
@@ -1025,7 +1031,8 @@ def get_multilabel_rows_distribution():
 
 def get_novel_site_vs_common_site_distribution_for_test():
     matplotlib.rcParams['font.sans-serif'] = "Arial"
-    matplotlib.rcParams['font.family'] = "sans-serif"
+    plt.rcParams['font.family'] = 'DeJavu Serif'
+    plt.rcParams['font.serif'] = ['Times New Roman']
     matplotlib.rcParams['font.size'] = 12
 
     train_rows = get_train_rows()
@@ -1083,7 +1090,7 @@ def get_novel_site_vs_common_site_distribution_for_test():
 
     plt.subplots_adjust(bottom=0.2)  # Increase the bottom parameter as needed
 
-    plt.tight_layout()  # Adjust layout
+    # tight_layout()  # Adjust layout
     # plt.show()
     # If you want to save the images, comment plt.show() and uncomment the two following lines:
     plt.savefig(f'{dataset_statistics_directory}/Novel_Sites_vs_Common_Sites_in_test.pdf', format='pdf', bbox_inches='tight', dpi=350)
@@ -1112,7 +1119,8 @@ def get_novel_site_vs_common_site_distribution_for_test():
 '''
 def get_novel_site_vs_common_site_distribution():
     matplotlib.rcParams['font.sans-serif'] = "Arial"
-    matplotlib.rcParams['font.family'] = "sans-serif"
+    plt.rcParams['font.family'] = 'DeJavu Serif'
+    plt.rcParams['font.serif'] = ['Times New Roman']
     matplotlib.rcParams['font.size'] = 12
 
     train_rows = get_train_rows()
@@ -1232,7 +1240,7 @@ def get_novel_site_vs_common_site_distribution():
                            sum(test_count_of_common_site_rows_in_test_and_validation.values())]
     fill_in_subplot_for__get_novel_site_vs_common_site_distribution(axes, 2, font_size, x_labels_site, x_values_count_site, x_values_site)
 
-    plt.tight_layout()  # Adjust layout
+    # plt.tight_layout()  # Adjust layout
     # plt.show()
     # If you want to save the images, comment plt.show() and uncomment the two following lines:
     plt.savefig(f'{dataset_statistics_directory}/Novel_Sites_vs_Common_Sites.pdf', format='pdf', bbox_inches='tight', dpi=350)
@@ -1255,7 +1263,8 @@ def get_novel_site_vs_common_site_distribution():
 '''
 def get_multilabel_rows_distribution_histogram():
     matplotlib.rcParams['font.sans-serif'] = "Arial"
-    matplotlib.rcParams['font.family'] = "sans-serif"
+    plt.rcParams['font.family'] = 'DeJavu Serif'
+    plt.rcParams['font.serif'] = ['Times New Roman']
     matplotlib.rcParams['font.size'] = 12
 
     train_rows = get_train_rows()
@@ -1316,7 +1325,7 @@ def get_multilabel_rows_distribution_histogram():
                                                                      font_size, max_y_value)
 
     plt.subplots_adjust(bottom=0.2)  # Increase the bottom parameter as needed
-    plt.tight_layout()  # Adjust layout
+    # plt.tight_layout()  # Adjust layout
     # plt.show()
     # If you want to save the images, comment plt.show() and uncomment the two following lines:
     plt.savefig(f'{dataset_statistics_directory}/Multilabel_Rows_Histogram.pdf', format='pdf', bbox_inches='tight', dpi=350)
@@ -1486,7 +1495,7 @@ def get_kinase_group_distributions_with_site_count_information():
                                                                                      x_values_kinase_count_group,
                                                                                      font_size)
 
-    plt.tight_layout()  # Adjust layout
+    # plt.tight_layout()  # Adjust layout
     # plt.show()
     # If you want to save the images, comment plt.show() and uncomment the two following lines:
     plt.savefig(f'{dataset_statistics_directory}/Kinase_Group_Distribution_and_Site_Count.pdf', format='pdf', bbox_inches='tight', dpi=350)
