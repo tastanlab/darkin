@@ -36,7 +36,7 @@ Here is the high level illustration of the steps of our dataset splitting strate
 As the first step you have to download this repository to your local environment. You can either download it az a zip file or just clone the repository like this:
 
 ```
-git clone git@github.com:aysesunar/darkin.git
+git clone git@github.com:tastanlab/darkin.git
 ```
 
 Now you have to create a conda environment to be able to run the code. Create the conda environment like this:
