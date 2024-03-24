@@ -123,3 +123,32 @@ In order to provide better insight in the dataset split that has been generated,
 
 ### 3.2. Dataset Statistics of our Default DARKIN Split
 
+<p align="left">
+  <img src="/dataset_statistics/kinase_count_in_each_set.png" alt="High Level Steps of the Dataset Splitting Script" width="150px"/>
+  <img src="/dataset_statistics/phosphosite_count_in_each_set.png" alt="High Level Steps of the Dataset Splitting Script" width="150px"/>
+  <img src="/dataset_statistics/phosphosite_kinase_pair_distribution.png" alt="High Level Steps of the Dataset Splitting Script" width="150px"/>
+</p>
+
+<p align="left">
+  <img src="/dataset_statistics/Kinase_Occurrenes_Histogram.png" alt="High Level Steps of the Dataset Splitting Script" width="300px"/>
+</p>
+
+<p align="left">
+  <img src="/dataset_statistics/Multilabel_vs_NonMultilabel_Rows_Distribution.png" alt="High Level Steps of the Dataset Splitting Script" width="300px"/>
+  <img src="/dataset_statistics/Novel_Sites_vs_Common_Sites_in_test.png" alt="High Level Steps of the Dataset Splitting Script" width="300px"/>
+</p>
+
+<p align="left">
+  <img src="/dataset_statistics/Novel_Sites_vs_Common_Sites.png" alt="High Level Steps of the Dataset Splitting Script" width="300px"/>
+  <img src="/dataset_statistics/Multilabel_Rows_Histogram.png" alt="High Level Steps of the Dataset Splitting Script" width="400px"/>
+  <img src="/dataset_statistics/Kinase_Group_Distribution_and_Site_Count.png" alt="High Level Steps of the Dataset Splitting Script" width="500px"/>
+</p>
+
+
+
+
+
+
+
+
+

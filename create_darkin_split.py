@@ -2005,7 +2005,7 @@ def create_and_visualize_dataset(kinase_count_test_threshold, stratify_percentag
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Dataset Split Parser')
 
-    parser.add_argument('--RANDOM_SEED', type=int, default=0)
+    parser.add_argument('--RANDOM_SEED', type=int, default=12345)
     parser.add_argument('--KINASE_SIMILARITY_PERCENT', type=int, default=90)
 
     parser.add_argument('--KINASE_COUNT_TEST_THRESHOLD', type=int, default=15)
