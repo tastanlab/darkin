@@ -4,8 +4,7 @@ Hello! This is the official repository for the DARKIN dataset which we present i
 DARKIN is dataset created for the Zero-Shot Learning setup, which you could create different versions of in a reproducible manner by playing around with the available parameters. This document will walk you through on how you could generate the DARKIN dataset in you local envionment and other details on the DARKIN dataset. For more detail please refer to our article. This repo will go over these topics:
 1. DARKIN and its Implementation Strategy
 2. How to generate a DARKIN split in your local environment
-(In progress) 3. Using the Dataset Statistics script to get insight of the created DARKIN split
-(In progress) 4. Example dataset statictics of the main DARKIN split we used in our paper
+3. How to generate the dataset statistics and our dataset statistics for our default DARKIN split.
 
 ## 1. DARKIN and its Implementation Strategy
 
