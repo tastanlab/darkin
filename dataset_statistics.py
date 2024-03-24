@@ -988,7 +988,7 @@ def get_multilabel_rows_distribution():
     grayish_color = (0.35, 0.35, 0.35)  # RGB values range from 0 to 1
     font_size = 10
 
-    fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(10, 6),
+    fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(6, 6),
                              gridspec_kw={
                                  'width_ratios': [1, 1, 1],
                                  'wspace': 0.3,
@@ -1276,7 +1276,6 @@ def get_multilabel_rows_distribution_histogram():
     test_site_to_kinase_count = get_site_to_kinase_count(test_rows)
 
     largest_shared_site = max(max(train_site_to_kinase_count.values()), max(validation_site_to_kinase_count.values()), max(test_site_to_kinase_count.values()))
-    print(largest_shared_site)
     thresholds = create_thresholds(1, largest_shared_site+1, 1)
     bins_train = np.zeros(len(thresholds), dtype=int)
     for key, value in train_site_to_kinase_count.items():
@@ -1509,11 +1508,11 @@ FOR STATISTICS, RUN THE FOLLOWING LINES:
 # get_sites_distribution()
 # get_phosphosite_kinase_pair_distribution()
 
-# create_histogram_from_kinase_occurences()
-# get_multilabel_rows_distribution()
+create_histogram_from_kinase_occurences()
+get_multilabel_rows_distribution()
 
-# get_novel_site_vs_common_site_distribution_for_test()
-# get_novel_site_vs_common_site_distribution()
-# get_multilabel_rows_distribution_histogram()
+get_novel_site_vs_common_site_distribution_for_test()
+get_novel_site_vs_common_site_distribution()
+get_multilabel_rows_distribution_histogram()
 
-# get_kinase_group_distributions_with_site_count_information()
+get_kinase_group_distributions_with_site_count_information()
