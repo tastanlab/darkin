@@ -1,5 +1,5 @@
 # DARKIN
-Hello! This is the official repository for the DARKIN dataset which we present in our paper "DARKIN: A zero-shot classification benchmark and an evaluation of protein language models". 
+Hello! This is the official repository for the DARKIN dataset which we present in our paper "DARKIN: A zero-shot classification benchmark and an evaluation of protein language models". You can find our paper at [this link](https://openreview.net/pdf?id=a4x5tbYRYV) for more detail.
 
 DARKIN is dataset created for the Zero-Shot Learning setup and you could create different versions of DARKIN in a reproducible manner by playing around with the available parameters. This document will walk you through on how you could generate the DARKIN dataset in you local envionment and other details about the DARKIN dataset. For more detail please refer to our article. This repo will go over these topics:
 1. DARKIN and its Implementation Strategy
