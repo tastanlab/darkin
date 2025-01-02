@@ -897,7 +897,7 @@ def place_kinases_with_high_similarity_into_the_same_dataset__group_wise_divisio
             for kinase in similar_kinases:
                 group = kinase_to_groups[kinase]
                 data_count = group_to_kinase_dict[group][kinase]
-                if data_count > kinase_count_test_threshold:
+                if data_count >= kinase_count_test_threshold:
                     test_kinase_to_count[kinase] = data_count
                     unseen_test_kinases.add(kinase)
                     group_to_dataset_count[group][f'unseen_{split_into_dataset}'] -= data_count
