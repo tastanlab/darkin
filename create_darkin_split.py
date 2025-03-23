@@ -12,7 +12,7 @@ from matplotlib import pyplot as plt
 CURATED_KINASE_DATASET_FILE = "data_files/Curated_557_kinase_dataset.csv"
 CLEAN_KINASE_SUBSTRATE_DATASET = "data_files/Clean_Kinase_Substrate_Dataset.csv"
 KINASE_SIMILARITY_SCORE_FILE = "data_files/kinase_similarity_matrix.csv"
-MULTI_CLASS_KINASE_SUBSTRATE_DATASET_FILE = "data_files/Formatted_Kinase_Substrate_Dataset.csv"
+MULTI_CLASS_KINASE_SUBSTRATE_DATASET_FILE = "data_files/Formatted_Kinase_Substrate_Dataset_wrt_sites.csv"
 RANDOM_SEED = 0
 
 def set_random_seed(random_seed):
@@ -2005,8 +2005,8 @@ def create_and_visualize_dataset(kinase_count_test_threshold, stratify_percentag
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Dataset Split Parser')
 
-    parser.add_argument('--RANDOM_SEED', type=int, default=12345)
-    parser.add_argument('--KINASE_SIMILARITY_PERCENT', type=int, default=90)
+    parser.add_argument('--RANDOM_SEED', type=int, default=1001)
+    parser.add_argument('--KINASE_SIMILARITY_PERCENT', type=int, default=60)
 
     parser.add_argument('--KINASE_COUNT_TEST_THRESHOLD', type=int, default=15)
     parser.add_argument('--STRATIFY_PERCENTAGE_FOR_UNSEEN_TEST_KINASE', type=float, default=0.10)
