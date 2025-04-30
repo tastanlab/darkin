@@ -165,7 +165,79 @@ Then you could access jupyter notebbok from http://localhost:8888/ on your brows
 </p>
 
 
+## 4. How to Create Embeddings
 
+The `create_embedding.py` script computes embeddings for protein sequences using Hugging Face models and saves them in a `.pt` file.
+
+### 4.1 Usage
+
+```bash
+python create_embedding.py [--input-files file1.csv file2.csv | --sequence SEQUENCE] \
+    --model-id MODEL_ID \
+    [--column-name COLUMN_NAME] \
+    [--embedding-type {cls,avg,all}] \
+    [--batch-size BATCH_SIZE] \
+    [--device {auto,cpu,cuda}] \
+    [--max-length MAX_LENGTH] \
+    [--output-file OUTPUT_FILE]
+```
+
+### 4.2 Options
+
+- `--input-files`  
+  One or more CSV files containing a column of sequences.
+
+- `--sequence`  
+  A single protein sequence string (mutually exclusive with `--input-files`).
+
+- `--column-name`  
+  Column name in CSV files (default: `sequence`).
+
+- `--model-id`  
+  Hugging Face model identifier (e.g., `Rostlab/prot_bert`).
+
+- `--embedding-type`  
+  Type of embedding:  
+  - `cls`: embedding of the `[CLS]` token 
+  - `avg`: average pooling of token embeddings  
+  - `all`: full sequence embeddings for each token (default)
+
+- `--batch-size`  
+  Batch size for processing (default: `32`).
+
+- `--device`  
+  Device to run on (`auto`, `cpu`, or `cuda`; default: `auto`).
+
+- `--max-length`  
+  Optional maximum sequence length (longer sequences are truncated).
+
+- `--output-file`  
+  Name of the output `.pt` file (default: `embeddings.pt`).
+
+### 4.3 Examples
+
+#### Embed a Single Sequence
+
+```bash
+python create_embedding.py --sequence "MTEITAAMVKELRESTGAGM" \
+    --model-id Rostlab/prot_bert --embedding-type avg
+```
+
+#### Embed Sequences from a CSV
+
+```bash
+python create_embedding.py --input-files proteins.csv \
+    --model-id facebook/esm2_t33_650M_UR50S --column-name seq \
+    --batch-size 16 --device cuda --output-file esm_embeddings.pt
+```
+
+#### Embed from Multiple CSV Files
+
+```bash
+python create_embedding.py --input-files batch1.csv batch2.csv batch3.csv \
+    --model-id facebook/esm2_t33_650M_UR50S \
+    --embedding-type cls --max-length 512
+```
 
 
 
