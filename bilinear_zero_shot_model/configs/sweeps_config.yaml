@@ -1,0 +1,23 @@
+sweep:
+  name: dkz_sweep
+  method: random
+  metric:
+    goal: maximize
+    name: validation/epoch_aupr ## Need to be same as logged metric in wandb
+  parameters:
+    batch_size:
+      values: [64, 128, 256]
+    gamma:
+      values: [0.90, 0.95, 0.99]
+    learning_rate:
+      values: [0.0001, 0.0003, 0.001, 0.003, 0.01, 0.03, 0.1]
+    optimizer:
+      values: ['Adam', 'SGD']
+    scheduler_type:
+      values: ['StepLR', 'ExponentialLR', 'CosineAnnealingLR']
+    weight_decay:
+      values: [0, 0.0005, 0.001]
+    temperature:
+      values: [0.5, 0.75, 1.0, 2.0]
+    use_weighted_loss:
+      values: [False, True]

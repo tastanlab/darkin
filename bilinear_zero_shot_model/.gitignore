@@ -1,0 +1,20 @@
+# Extra
+__pycache__
+.idea
+.DS_Store
+
+# Logs
+/slurm_outputs
+/wandb
+
+# Model Checkpoints
+checkpoints/*/*
+!checkpoints/*/
+deep_esm_model_ckpt/
+kinase_encoders/
+
+configs/truba_configs
+supplementary/*.csv
+supplementary/attention_plots/*/*.png
+supplementary/prediction_output_files/*/*.csv
+test_suite_results/
