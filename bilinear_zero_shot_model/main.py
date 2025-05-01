@@ -17,7 +17,7 @@ def main():
     #parser.add_argument('--mode', choices=['train', 'test', 'predict'], required=True, help='Mode: train, test, or predict')
 
     parser.add_argument('--mode', choices=['train', 'test', 'predict', 'train_val'], default='test', help='Mode: train, test, or predict', type=str)
-    parser.add_argument('--config_path', default='configs/example_config.yaml', help='Config yaml file of model', type=str)
+    parser.add_argument('--config_path', default='configs/esm1b_bzsm_config.yaml', help='Config yaml file of model', type=str)
     parser.add_argument('--num_of_models', default=1, help='Number of independent models to train', type=int)
 
     args = parser.parse_args()

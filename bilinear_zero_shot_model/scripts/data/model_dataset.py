@@ -305,7 +305,7 @@ def calculate_train_class_counts(data_type, config):
         _, eval_unique_kinases = get_kinase_count(config['phosphosite']['dataset'][data_type]) # Unique kinase list in evaluation dataset
 
         if config['hyper_parameters'].get('loss_weight_type', 'pairwise_sim') == 'pairwise_sim': # If not added to config file, it will use pairwise similarity counts as weights
-            kinase_similarity_filename = "dataset/new_dataset/kinase_pairwise_identity_similarity_scores.csv"
+            kinase_similarity_filename = "../Darkin_Dataset/data_files/kinase_similarity_matrix.csv"
             similarity_df = pd.read_csv(kinase_similarity_filename, index_col=0)
 
             for eval_kinase in eval_unique_kinases:
