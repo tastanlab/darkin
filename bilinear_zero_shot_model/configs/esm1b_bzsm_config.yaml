@@ -1,20 +1,19 @@
 phosphosite:
   dataset:
-    train: dataset/new_dataset/zsl/seed_12345/train_data.csv
-    validation: dataset/new_dataset/zsl/seed_12345/validation_data.csv
-    test: dataset/new_dataset/zsl/seed_12345/test_data.csv
-    train_val: dataset/new_dataset/zsl/seed_12345/train_val_data.csv
+    train: ../Darkin_Dataset/datasets/random_seed_12345/ZSL/train_data_random_seed_12345.csv
+    validation: ../Darkin_Dataset/datasets/random_seed_12345/ZSL/ZSL_validation_data_random_seed_12345.csv
+    test: ../Darkin_Dataset/datasets/random_seed_12345/ZSL/ZSL_test_data_random_seed_12345.csv
     processor:
       processor_type: hf
       model_name: esm1b_t33_650M_UR50S
       read_embeddings: true
-      phosphosite_embedding_path: /truba/home/mpekey/dkz_models/esm1b_phosphosite.pt
+      phosphosite_embedding_path: this_path_should_be_set_accordingly
       protvec_file_path: dataset/new_dataset/protvec_embeddings.txt
       split_multilabel_rows: false
   model:
     model_type: hf
     model_name: esm1b_t33_650M_UR50S
-    embedding_mode: sequence
+    embedding_mode: cls
     is_pretrained: true
     freeze: true
     unfrozen_layers: ''
@@ -25,20 +24,20 @@ phosphosite:
   sequence_model:
     model_type: bilstm
     hidden_size: 512
-    use_sequence_model: true
+    use_sequence_model: false
 
 kinase:
   dataset:
-    train: dataset/new_dataset/zsl/seed_12345/kinase_properties.csv
-    validation: dataset/new_dataset/zsl/seed_12345/kinase_properties.csv
-    test: dataset/new_dataset/zsl/seed_12345/kinase_properties.csv
-    train_val: dataset/new_dataset/zsl/seed_12345/kinase_properties.csv
+    train: ../Darkin_Dataset/data_files/kinase_properties.csv
+    validation: ../Darkin_Dataset/data_files/kinase_properties.csv
+    test: ../Darkin_Dataset/data_files/kinase_properties.csv
+    train_val: ../Darkin_Dataset/data_files/kinase_properties.csv
     processor:
       processor_type: hf
       model_name: esm1b_t33_650M_UR50S
       read_embeddings: true
-      kinase_embedding_path: /truba/home/mpekey/dkz_models/esm1b_kinase.pt
-      protvec_file_path: dataset/new_dataset/protvec_embeddings.txt
+      kinase_embedding_path: this_path_should_be_set_accordingly
+      protvec_file_path: 
       use_family: true
       use_group: true
       use_enzymes: true
@@ -70,11 +69,11 @@ training:
   loss_function: 'normalized_cross_entropy'
 
 hyper_parameters:
-  gamma : 0.95
-  learning_rate : 0.015
+  gamma : 0.97
+  learning_rate : 0.01
   optimizer : 'SGD'
-  scheduler_type : 'StepLR'
-  weight_decay: 0.0005
+  scheduler_type : 'CosineAnnealingLR'
+  weight_decay: 0.0001
   temperature: 1.0
   focal_loss_gamma: 1.0
   use_weighted_loss: false
@@ -84,16 +83,16 @@ hyper_parameters:
 logging:
   wandb:
     use_wandb : false
-    log_name : 'esm1b_lstm'
+    log_name : 'esm1b_w'
     project_name : 'transformer-training'
     entity_name : 'deepkinzero'
   local:
     run_test_suite: false
     use_config_filename: false
     save_predictions: false
-    checkpoint_file_name: 'esm1b_lstm'
+    checkpoint_file_name: 'esm1b_w'
     saved_model_path: checkpoints/esm1b_models
-    kinase_encoder_save_path : checkpoints/esm1b_models/ke_esm1b_lstm.pkl
+    kinase_encoder_save_path : checkpoints/esm1b_models/ke_esm1b_w.pkl
 
 lora_config:
   lora_rank: 8
