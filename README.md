@@ -287,7 +287,7 @@ python create_similarity_matrices.py  --phosphosite_emb_file </path/to/file> \
 - `--savepath`  
   Saving path which the similarity matrices is saved in as .json format
 
-  #### 5.1.3 Example
+  #### 5.1.2 Example
 
   ```
   python3 create_similarity_matrices.py --phosphosite_emb_file ESM1b_PhosphositeEmb.pt \
@@ -301,5 +301,92 @@ python create_similarity_matrices.py  --phosphosite_emb_file </path/to/file> \
   --savepath /ESM1b_Similarity_Matrices
   ```
 
+### 5.2 Usage  `baseline_knn.py`
+
+```
+python baseline_knn.py  --traindata </path/to/file> \
+--testdata </path/to/file> \
+--kinase_properties_file </path/to/file> \
+--k <integer> \
+--phosphosite_similarity_file </path/to/file> \
+--kinase_similarity_file </path/to/file> \
+--savepath </path>
+```
+
+#### 5.2.1 Options
+
+- `traindata`
+  Name of train data file that is obtained in creating DARKIN split step.
+
+- `testdata`
+  Name of train data file that is obtained in creating DARKIN split step.
+
+- `kinase_properties_file`
+  File name which contains human kinases properties that is obtained in creating DARKIN split step.
+  
+- `k`
+  The number of nearest neighbors.
+  
+- `phosphosite_similarity_file`
+  File name of phosphosite similarity matrix which is obtained in creating similarity matrices step.
+  
+- `kinase_similarity_file`
+  File name of kinase similarity matrix which is obtained in creating similarity matrices step.
+  
+- `savepath`
+  Save path which prediction scores of kinases are saved in as .json format
+
+#### 5.2.2 Example
+
+```
+python baseline_knn.py --traindata train_data.csv \
+--testdata test_data.csv \
+--kinase_properties_file kinase_properties.csv \
+--k 3 \
+--phosphosite_similarity_file PhosphositeAvg.json \
+--kinase_similarity_file KinaseAvg.json \
+--savepath /Experiments/ESM1b
+```
+
+### 5.3 Usage  `aupr_zsl.py`
+
+```
+python3 aupr_zsl.py --testdata </path/to/file> \
+--kinase_properties_file </path/to/file> \
+--kinase_similarity </path/to/file> \
+--prediction_scores </path/to/file> \
+--k <integer> \
+--outputpath </path/to/file>
+```
+
+#### 5.3.1 Options
+
+- `testdata`
+  Name of train data file that is obtained in creating DARKIN split step.
+
+- `kinase_properties_file`
+  File name which contains human kinases properties that is obtained in creating DARKIN split step.
+
+- `kinase_similarity`
+  File name of kinase similarity matrix which is obtained in creating similarity matrices step.
+
+- `prediction_scores`
+  File name which contains the ranking scores of kinases for each test phoshosites.
+
+- `k`
+  The number of nearest neighbors.
+  
+- `outputpath`
+  File name which saves the final prediction scores in terms of Aveage Precision by post processing predictions.
 
 
+#### 5.3.2 Example
+
+```
+python3 aupr_zsl.py --testdata test_data.csv \
+--kinase_properties_file kinase_properties.csv \
+--kinase_similarity KinaseAvg.json \
+--prediction_scores 3.json \
+--k 3 \
+--outputpath /Experiments/ESM1b
+```
