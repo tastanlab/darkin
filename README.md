@@ -28,7 +28,7 @@ There are several strategies utilized when creating the dataset splits:
 Here is the high level illustration of the steps of our dataset splitting strategy implementation:
 
 <p align="center">
-  <img src="/images/high_level_dataset_split_script_algorithm_flow-ZSL-GitHub.drawio.png" alt="High Level Steps of the Dataset Splitting Script" width="20%"/>
+  <img src="Darkin_Dataset/images/high_level_dataset_split_script_algorithm_flow-ZSL-GitHub.drawio.png" alt="High Level Steps of the Dataset Splitting Script" width="20%"/>
 </p>
 
 ### 1.2. How to generate a DARKIN split in your local environment
@@ -75,7 +75,7 @@ pip install matplotlib
 
 now you should be all set to run the code!
 
-### 2.2. Running the Code
+### 1.2.2. Running the Code
 
 Now you are ready to run the code and create the DARKIN dataset in your local environment. To run the code, you have to run the create_darkin_split.py file like this:
 
