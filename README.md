@@ -239,8 +239,67 @@ python create_embedding.py --input-files batch1.csv batch2.csv batch3.csv \
     --embedding-type cls --max-length 512
 ```
 
+## 5. How to Run Baseline K-NN Experiments
 
+There are three scripts to run baseline K-Nearest Neighbors method. The first is the `create_similarity_matrices.py`. This is for speeding up the find the most similar kinases. The second one is `baseline_knn.py` which is the main script to conduct K-NN experiments. The last step is running `aupr_zsl.py` script to calculate the AP scores which is the evaluation metric of this study.
+In the baseline setup, outputs of each step is the input of the consecutive step. 
 
+### 5.1 Usage  `create_similarity_matrices.py`
+
+```
+python create_similarity_matrices.py  --phosphosite_emb_file </path/to/file> \
+--kinase_emb_file </path/to/file> \
+--kinase_properties_file </path/to/file> \
+--taken_token <True or False> \
+--group <True or False> \
+--family <True or False> \
+--ec <True or False> \
+--cls_or_avg <cls, avg, or None>
+--savepath </path>
+```
+
+#### 5.1.1 Options
+
+- `--phosphosite_emb_filee`  
+  Embedding file name which is obtained by creating embeddings step.
+
+- `--kinase_emb_file`  
+  Embedding file name which is obtained by creating embeddings step.
+
+- `--kinase_properties_file`  
+  File name which contains human kinases properties that is obtained in creating DARKIN split step.
+
+- `--taken_token`  
+  True or false depending on the embeddings, if the embeddings provide cls token and avg token embedding it is True.
+  
+- `--group`  
+  True or False if you want to add kinase group information as an additional feature it is True.
+  
+- `--family`  
+  True or False if you want to add kinase family information as an additional feature it is True.
+  
+- `--ec`  
+  True or False if you want to add kinase enzyme classification information as an additional feature it is True.
+  
+- `--cls_or_avg`  
+  cls or avg or None depending on how you want to use embeddings. None is only for BLOSUM, NLF and One-hot representations
+  
+- `--savepath`  
+  Saving path which the similarity matrices is saved in as .json format
+
+  #### 5.1.3 Example
+
+  ```
+  python3 create_similarity_matrices.py --phosphosite_emb_file ESM1b_PhosphositeEmb.pt \
+  --kinase_emb_file ESM1b_KinaseEmb.pt \
+  --kinase_properties_file kinase_properties.csv \
+  --taken_token true \
+  --group true \
+  --family true \
+  --ec true \
+  --cls_or_avg avg \
+  --savepath /ESM1b_Similarity_Matrices
+  ```
 
 
 
