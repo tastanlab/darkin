@@ -519,6 +519,16 @@ def select_embedding_slice(embedding_tensor, embedding_mode, sequence_length):
                 return embedding_tensor[:, middle_index, :]
             else:
                 raise NotImplementedError
+        elif embedding_mode == 'concat':
+            if len(data_shape) == 2:
+                # [seq_len, hidden_dim] -> [seq_len * hidden_dim]
+                return embedding_tensor.flatten()
+            elif len(data_shape) == 3:
+                # [batch_size, seq_len, hidden_dim] -> [batch_size, seq_len * hidden_dim]
+                batch_size, seq_len, hidden_dim = embedding_tensor.size()
+                return embedding_tensor.view(batch_size, seq_len * hidden_dim)
+            else:
+                raise NotImplementedError
         else:
             raise NotImplementedError
     return embedding_tensor

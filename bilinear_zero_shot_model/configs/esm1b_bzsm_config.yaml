@@ -7,7 +7,7 @@ phosphosite:
       processor_type: hf
       model_name: esm1b_t33_650M_UR50S
       read_embeddings: true
-      phosphosite_embedding_path: this_path_should_be_set_accordingly
+      phosphosite_embedding_path: /arf/scratch/esunar/DeepKinZero_2/extract_embeddings/merged_embeddings/ESM1B_Site_merged_embeddings.pt
       protvec_file_path: dataset/new_dataset/protvec_embeddings.txt
       split_multilabel_rows: false
   model:
@@ -36,7 +36,7 @@ kinase:
       processor_type: hf
       model_name: esm1b_t33_650M_UR50S
       read_embeddings: true
-      kinase_embedding_path: this_path_should_be_set_accordingly
+      kinase_embedding_path: /arf/scratch/esunar/DeepKinZero_2/extract_embeddings/merged_embeddings/ESM1BKinaseEmb_withattentionmask.pt
       protvec_file_path: 
       use_family: true
       use_group: true
@@ -69,11 +69,11 @@ training:
   loss_function: 'normalized_cross_entropy'
 
 hyper_parameters:
-  gamma : 0.97
-  learning_rate : 0.01
+  gamma : 0.9756514890680584
+  learning_rate : 0.00259774443912184
   optimizer : 'SGD'
   scheduler_type : 'CosineAnnealingLR'
-  weight_decay: 0.0001
+  weight_decay: 0.00011754554440719858
   temperature: 1.0
   focal_loss_gamma: 1.0
   use_weighted_loss: false
