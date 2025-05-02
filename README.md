@@ -392,3 +392,53 @@ python3 aupr_zsl.py --testdata test_data.csv \
 --k 3 \
 --outputpath /Experiments/ESM1b
 ```
+
+## 4. How to Run the Bi-Linear Zero-Shot Model (BZSM) Experiments
+
+### 4.1. Running the BZSM Model
+
+To run the Bi-Linear Zero-Shot Model, execute the `main.py` file located in the `bilinear_zero_shot_model` directory. This file supports several parameters:
+
+- `mode`: Set this to either `'train'` or `'test'`.
+- `config_path`: Specify the configuration `.yml` file you want to run.
+- `num_of_models`: The number of models you wish to train.
+
+**Example command:**
+```bash
+python -u main.py --mode train \
+--config_path configs/to_carry/NLF_all.yaml \
+--num_of_models 3
+```
+
+### 4.2. Setting Up the YML Files
+
+Example configuration files are located in the `bilinear_zero_shot_model/configs/` directory. While these files contain many parameters, you’ll typically only need to modify the following:
+
+- `['phosphosite']['dataset']['train']`, `['validation']`, `['test']`:  
+  Paths to your training, validation, and test datasets. These should point to the DARKIN dataset splits. You can use default paths like:  
+  `../Darkin_Dataset/datasets/random_seed_12345/ZSL/train_data_random_seed_12345.csv`.
+
+- `['phosphosite']['dataset']['processor']['processor_type']`:  
+  Specifies the protein language model (pLM) or word embedding used to encode phosphosites. Examples are available in the provided config files.
+
+- `['phosphosite']['dataset']['processor']['phosphosite_embedding_path']`:  
+  Path to the generated phosphosite embeddings. Refer to **Section 2** for instructions on how to create these.
+
+- `['kinase']['dataset']['processor']['processor_type']`:  
+  Specifies the protein language model or embedding method used for kinases. Again, examples can be found in the config files.
+
+- `['kinase']['dataset']['processor']['phosphosite_embedding_path']`:  
+  Path to the generated kinase embeddings. See **Section 2** for embedding creation details.
+
+- `['phosphosite']['model']['embedding_mode']` and `['kinase']['model']['embedding_mode']`:  
+  Sets how the embeddings are used. Available options:
+  - `cls`: Use the CLS token from the embedding.
+  - `avg`: Average all token embeddings.
+  - `sequence`: Use the full embedding sequence.
+  - `concat`: Concatenate all token embeddings into one long vector.
+
+- `['kinase']['dataset']['processor']`:  
+  Contains optional toggles such as `use_family`, `use_group`, etc. Set these to `true` or `false` depending on your experimental preferences.
+
+- `['hyper_parameters']`:  
+  Contains model training hyperparameters (e.g., learning rate, batch size, etc.). Adjust these according to your experimental setup.
