@@ -248,6 +248,8 @@ In the baseline setup, outputs of each step is the input of the consecutive step
 
 ### 3.1 Usage  `create_similarity_matrices.py`
 
+This script calculates the similarity matrices for given phosphosite and kinase embeddings before running k-nearest neighbors experiments. The output of the script will be the input of next step which is running k-nn method. This step is added in order to speed up the baseline runs.
+
 ```
 python create_similarity_matrices.py  --phosphosite_emb_file </path/to/file> \
 --kinase_emb_file </path/to/file> \
@@ -305,6 +307,8 @@ python create_similarity_matrices.py  --phosphosite_emb_file </path/to/file> \
 
 ### 3.2 Usage  `baseline_knn.py`
 
+This script performs the k-nn method for given train and test data, and outputs the likelihood of kinases for each test phosphosites. 
+
 ```
 python baseline_knn.py  --traindata </path/to/file> \
 --testdata </path/to/file> \
@@ -351,6 +355,9 @@ python baseline_knn.py --traindata train_data.csv \
 ```
 
 ### 3.3 Usage  `aupr_zsl.py`
+
+This scripts post-processes the likelihoods and calculates the average precision scores for each kinase and takes the macro average.
+
 
 ```
 python3 aupr_zsl.py --testdata </path/to/file> \
